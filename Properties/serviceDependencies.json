@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:Vasilcan_Darius_Gheorghe_Lab2Context"
+    }
+  }
+}
