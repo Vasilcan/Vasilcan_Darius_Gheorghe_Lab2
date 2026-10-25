@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Vasilcan_Darius_Gheorghe_Lab2.Models;
 
-namespace Vasilcan_Darius-Gheorghe_Lab2.Pages.BookPages;
+namespace Vasilcan_Darius_Gheorghe_Lab2.Pages.BookPages;
 
 public class DetailsModel : PageModel
 {
     private readonly Vasilcan_Darius_Gheorghe_Lab2Context _context;
+
     public DetailsModel(Vasilcan_Darius_Gheorghe_Lab2Context context)
     {
         _context = context;
@@ -17,13 +18,20 @@ public class DetailsModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (id is null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
-        if (book is null)
+        // Aici am adăugat Include pentru Autor, Publisher și Categorii
+        var book = await _context.Book
+            .Include(b => b.Author)
+            .Include(b => b.Publisher)
+            .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+            .FirstOrDefaultAsync(m => m.ID == id);
+
+        if (book == null)
         {
             return NotFound();
         }
@@ -31,7 +39,6 @@ public class DetailsModel : PageModel
         {
             Book = book;
         }
-
         return Page();
     }
 }

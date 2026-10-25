@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Vasilcan_Darius_Gheorghe_Lab2.Models;
 
-namespace Vasilcan_Darius-Gheorghe_Lab2.Pages.BookPages
-    {
+namespace Vasilcan_Darius_Gheorghe_Lab2.Pages.BookPages;
 
 public class DeleteModel : PageModel
 {
@@ -25,7 +24,7 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+        var book = await _context.Book.Include(b => b.Publisher).Include(b => b.Author).FirstOrDefaultAsync(m => m.ID == id);
         if (book is null)
         {
             return NotFound();
@@ -55,5 +54,4 @@ public class DeleteModel : PageModel
 
         return RedirectToPage("./Index");
     }
-}
 }
