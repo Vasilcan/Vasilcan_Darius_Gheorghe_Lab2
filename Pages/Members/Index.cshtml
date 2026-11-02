@@ -1,0 +1,8 @@
+@page
+@model Vasilcan_Darius_Gheorghe_Lab2.Pages.Members.IndexModel
+@{ ViewData["Title"] = "Members"; }
+<h1>Members</h1>
+<p><a asp-page="Create">Create New</a></p>
+<table class="table"><thead><tr><th>Full Name</th><th>Email</th><th>Address</th><th>Phone</th></tr></thead><tbody>
+@foreach (var item in Model.Member) { <tr><td>@item.FullName</td><td>@item.Email</td><td>@item.Address</td><td>@item.Phone</td></tr> }
+</tbody></table>

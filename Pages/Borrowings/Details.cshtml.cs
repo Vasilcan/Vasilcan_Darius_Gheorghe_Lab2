@@ -1,0 +1,19 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Vasilcan_Darius_Gheorghe_Lab2.Models;
+
+namespace Vasilcan_Darius_Gheorghe_Lab2.Pages.Borrowings;
+
+public class DetailsModel : PageModel
+{
+    private readonly Vasilcan_Darius_Gheorghe_Lab2Context _context;
+    public DetailsModel(Vasilcan_Darius_Gheorghe_Lab2Context context) => _context = context;
+    public Borrowing Borrowing { get; private set; } = default!;
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id is null) return NotFound();
+        Borrowing = await _context.Borrowing.Include(item => item.Member).Include(item => item.Book).ThenInclude(book => book!.Author).FirstOrDefaultAsync(item => item.ID == id);
+        return Borrowing is null ? NotFound() : Page();
+    }
+}

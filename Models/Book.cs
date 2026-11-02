@@ -23,5 +23,6 @@ namespace Vasilcan_Darius_Gheorghe_Lab2.Models
         public Publisher? Publisher { get; set; }
 
         public ICollection<BookCategory>? BookCategories { get; set; }
+        public ICollection<Borrowing> Borrowings { get; set; } = new List<Borrowing>();
     }
 }
