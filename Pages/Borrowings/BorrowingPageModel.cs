@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Vasilcan_Darius_Gheorghe_Lab2.Pages.Borrowings;
 
+[Authorize]
 public abstract class BorrowingPageModel : PageModel
 {
     protected readonly Vasilcan_Darius_Gheorghe_Lab2Context Context;

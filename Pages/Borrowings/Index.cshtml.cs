@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Vasilcan_Darius_Gheorghe_Lab2.Models;
 
 namespace Vasilcan_Darius_Gheorghe_Lab2.Pages.Borrowings;
 
+[Authorize]
 public class IndexModel : PageModel
 {
     private readonly Vasilcan_Darius_Gheorghe_Lab2Context _context;

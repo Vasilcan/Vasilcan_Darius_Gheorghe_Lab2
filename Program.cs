@@ -1,8 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Vasilcan_Darius_Gheorghe_Lab2.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Vasilcan_Darius_Gheorghe_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Vasilcan_Darius_Gheorghe_Lab2Context' not found.");
 
 builder.Services.AddDbContext<Vasilcan_Darius_Gheorghe_Lab2Context>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<LibraryIdentityContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<LibraryIdentityContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -21,6 +26,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
